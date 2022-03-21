@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:zamin_muthur_app/Screens/Login/home_screen.dart';
 import 'Screens/Login/first_screen.dart';
 
 
+
+
+//updated by parthosh on 21.3.2022
+//overall ui except profile,about,ration page
 void main() {
   //lock the rotation in land scape.......................
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,6 +32,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: FirstScreen(),
+      // home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }

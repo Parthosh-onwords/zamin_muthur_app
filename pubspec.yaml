@@ -38,6 +38,8 @@ dependencies:
   percent_indicator:
   smooth_page_indicator:
   carousel_slider:
+  google_fonts:
+  pin_code_fields:
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +77,22 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Avenir
+      fonts:
+        - asset: fonts/Avenir-Black.ttf
+        - asset: fonts/Avenir-Heavy.ttf
+        - asset: fonts/Avenir-Light.ttf
+        - asset: fonts/Avenir-Medium.ttf
+        - asset: fonts/Avenir-MediumOblique.ttf
+    - family: Nexa
+      fonts:
+        - asset: fonts/nexa/Nexa-Trial-Black.ttf
+        - asset: fonts/nexa/Nexa-Trial-Bold.ttf
+        - asset: fonts/nexa/Nexa-Trial-Light.ttf
+        - asset: fonts/nexa/Nexa-Trial-Regular.ttf
+        - asset: fonts/nexa/Nexa-Trial-Thin.ttf
+
   # fonts:
   #   - family: Schyler
   #     fonts:

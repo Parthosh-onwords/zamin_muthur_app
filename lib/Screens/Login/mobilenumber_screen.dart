@@ -3,6 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:zamin_muthur_app/Screens/Login/passwors_screen.dart';
 
 
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => const PasswordPage(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
+
+
 class MobileNumberPage extends StatefulWidget {
   const MobileNumberPage({Key? key}) : super(key: key);
 
@@ -16,18 +36,59 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: const Color(0xffFFF2DF),
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: const BoxDecoration(
-          gradient: RadialGradient(colors: [
-            Color(0xffE1F1FC),
-            Color(0xffF8F0FE),
-          ], center: Alignment(0.5, -0.5), radius: 0.9),
+            color: Color.fromRGBO(249, 240, 255 , 1.0)
         ),
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        height: double.infinity,
         width: double.infinity,
         child: Stack(
           children: [
+
+            Positioned(
+              top: height*0.025,
+              right: width*-0.1,
+              width: width*0.6,
+              height: height*0.3,
+              child: Container(
+                // width: 80,
+                // height: height*0.5,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(300),
+                    boxShadow: const [
+                      BoxShadow(
+                          blurRadius: 40,
+                          color: Color.fromRGBO(125, 61, 219,0.1),
+                          offset: Offset(1.0,5.0)
+                      )
+                    ]
+                ),
+
+              ),
+            ),
+            Positioned(
+              top: height*0.55,
+              left: width*-0.2,
+              width: width*0.8,
+              height: height*0.3,
+              child: Container(
+                // width: 80,
+                // height: height*0.5,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(300),
+                    boxShadow: const [
+                      BoxShadow(
+                          blurRadius: 40,
+                          color: Color.fromRGBO(255, 242, 223,0.70),
+                          offset: Offset(1.0,5.0)
+                      )
+                    ]
+                ),
+
+              ),
+            ),
             Positioned(
               left: width * 0.300,
               top: height * 0.01,
@@ -44,21 +105,23 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
 
             ),
             Positioned(
+              right: height*0.15,
               top: height * 0.25,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
                     'Login using',
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400,fontFamily: 'Nexa'),
                   ),
                   SizedBox(
-                    height: height * 0.04,
+                    height: height * 0.025,
                   ),
                   const Text(
                     'Mobile number',
                     style: TextStyle(
-                        fontSize: 48,
+                      fontFamily: 'Nexa',
+                        fontSize: 30,
                         fontWeight: FontWeight.w600,
                         color: Color(0xff7434CF)),
                   ),
@@ -70,6 +133,7 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
               child: Container(
                 width: width * 0.8,
                 height: height * 0.08,
+                margin: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
                     boxShadow: const [
@@ -85,6 +149,7 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
                     TextFormField(
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
+                        hintStyle: const TextStyle(fontFamily: 'Nexa',fontSize: 15),
                         contentPadding: const EdgeInsets.all(20),
                         hintText: 'Mobile number',
                         filled: true,
@@ -106,12 +171,10 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
               child: GestureDetector(
                 onTap: () {
                   setState(() {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const PasswordPage(),
-                      ),
-                    );
+
+                    Navigator.of(context).push(_createRoute());
+
+
                   });
                 },
                 child: Container(
@@ -121,12 +184,17 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(40),
                       gradient: const LinearGradient(
-                          colors: [Color(0xff8949E9), Color(0xff6324BB)])),
+                          colors: [
+                            Color(0xff8949E9),
+                            Color(0xff8949E9)
+                            // Color(0xff6324BB)
+                          ],
+                      )),
                   child: Center(
                     child: Text(
                       'Next',
                       style: TextStyle(
-                          fontSize: height * 0.025, color: Colors.white),
+                          fontSize: height * 0.015, color: Colors.white,fontFamily: 'Nexa'),
                     ),
                   ),
                 ),
