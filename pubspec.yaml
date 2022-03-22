@@ -41,6 +41,10 @@ dependencies:
   google_fonts:
   pin_code_fields:
   input_history_text_field:
+  firebase_auth:
+  firebase_core:
+  firebase_database:
+  cloud_firestore:
 
 dev_dependencies:
   flutter_test:
