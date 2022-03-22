@@ -79,7 +79,7 @@ int currentPos= 0;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(top: height * 0.04, ),
+        padding: EdgeInsets.only(top: height * 0.05, ),
         decoration: const BoxDecoration(
             color: Color.fromRGBO(249, 240, 255 , 1.0),
         ),
@@ -182,13 +182,13 @@ int currentPos= 0;
                     ],
                   ),
                   SizedBox(
-                    height: height * 0.04,
+                    height: height * 0.07,
                   ),
                   Center(
                     child: Container(
                       padding:
                       EdgeInsets.only(left: width * 0.030, right: width * 0.1),
-                      height: height * 0.18,
+                      height: height * 0.15,
                       width: width * 0.9,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
@@ -202,24 +202,25 @@ int currentPos= 0;
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          CircularPercentIndicator(
-                            radius: 60,
-                            circularStrokeCap: CircularStrokeCap.round,
-                            animation: true,
-                            percent: 70 / 100,
-                            //percent/100,
-                            animateFromLastPercent: true,
-                            lineWidth: 10,
-                            progressColor: Colors.white,
-                            backgroundColor: Colors.transparent,
-                            center: Text(
-                              "23\nMins",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: height * 0.016,
-                                  color: Colors.white),
-                            ),
-                          ),
+                          Image.asset('assets/valve.png',scale: 3.5,),
+                          // CircularPercentIndicator(
+                          //   radius: 60,
+                          //   circularStrokeCap: CircularStrokeCap.round,
+                          //   animation: true,
+                          //   percent: 70 / 100,
+                          //   //percent/100,
+                          //   animateFromLastPercent: true,
+                          //   lineWidth: 10,
+                          //   progressColor: Colors.white,
+                          //   backgroundColor: Colors.transparent,
+                          //   center: Text(
+                          //     "23\nMins",
+                          //     style: TextStyle(
+                          //         fontWeight: FontWeight.w600,
+                          //         fontSize: height * 0.016,
+                          //         color: Colors.white),
+                          //   ),
+                          // ),
                           Container(
                             margin: EdgeInsets.only(
                                 top: height * 0.06, left: width * 0.03),
@@ -227,21 +228,23 @@ int currentPos= 0;
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Street Water',
+                                  'Morning 06:30 pm',
                                   style: TextStyle(
-                                      fontSize: height * 0.022,
+                                    fontFamily: 'Nexa',
+                                      fontSize: height * 0.018,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 SizedBox(
-                                  height: height * 0.01,
+                                  height: height * 0.0025,
                                 ),
                                 Text(
-                                  'Remaining time',
+                                  'Street Water time',
                                   style: TextStyle(
-                                      fontSize: height * 0.022,
+                                    fontFamily: 'Nexa',
+                                      fontSize: height * 0.012,
                                       color: Colors.white,
-                                      fontWeight: FontWeight.w600),
+                                      fontWeight: FontWeight.w200),
                                 ),
                               ],
                             ),
@@ -267,7 +270,7 @@ int currentPos= 0;
                   ),
                   Center(
                     child: SizedBox(
-                      height: height * 0.2,
+                      height: height * 0.085,
                       width: width * 0.9,
                       child:
                       CarouselSlider(
@@ -302,7 +305,7 @@ int currentPos= 0;
                       children: indicators(listPaths.length,currentPos)
                   ),
                   SizedBox(
-                    height: height * 0.03,
+                    height: height * 0.002,
                   ),
                   SizedBox(
                     height: height * 0.2,
@@ -424,8 +427,8 @@ int currentPos= 0;
     return List<Widget>.generate(imagesLength, (index) {
       return AnimatedContainer(
         margin: const EdgeInsets.all(3),
-        width: 30,
-        height: 5,
+        width: 20,
+        height: 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
             color: currentIndex == index ? Colors.black : Colors.black26,
@@ -440,20 +443,21 @@ int currentPos= 0;
   Center noticeContainer(double height,double width) {
     return Center(
       child: Container(
-        height: height*0.3,
-        width: width * 0.9,
+        padding: EdgeInsets.only(left: 25.0,right: 5.0,top: 5.0,bottom: 5.0),
+        height: height*0.15,
+        width: width * 1.0,
         //margin: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
             color: const Color(0xffFBF8FF),
             borderRadius: BorderRadius.circular(20)),
-        child: const Center(
+        child: Center(
           child: Text(
-            "Lorem ipsum",
+            "Tomorrow polio drops champ will be conducted on Govt. School hgsdgfhasgfgjasgfh ",textAlign: TextAlign.left,
             style: TextStyle(
               fontFamily: 'Nexa',
               fontWeight: FontWeight.w500,
-              fontSize: 20,
-              color: Color(0xffBBBBBB),
+              fontSize: height*0.012,
+              color: const Color(0xffBBBBBB),
             ),
           ),
         ),

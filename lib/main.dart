@@ -8,6 +8,7 @@ import 'Screens/Login/first_screen.dart';
 
 //updated by parthosh on 21.3.2022
 //overall ui except profile,about,ration page
+
 void main() {
   //lock the rotation in land scape.......................
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +16,6 @@ void main() {
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
-
   runApp(const MyApp());
 }
 
