@@ -6,8 +6,8 @@ import 'Screens/Login/first_screen.dart';
 
 
 
-//updated by parthosh on 21.3.2022
-//overall ui except profile,about,ration page...
+//updated by parthosh on 22.3.2022
+//overall ui except updates done
 
 //updated by mohan on 22.3.2022
 //about village, profile, search, ration Screens
