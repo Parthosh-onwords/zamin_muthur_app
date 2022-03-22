@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:input_history_text_field/input_history_text_field.dart';
 import 'home_screen.dart';
 
 
@@ -122,29 +123,43 @@ class _StreetPageState extends State<StreetPage> {
             ),
             Positioned(
               child: Container(
-                width: width * 0.7,
-                height: height * 0.065,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(2.0, 4.0),
-                        spreadRadius: 3,
-                        blurRadius: 9)
-                  ],
-                ),
-                child: TextField(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: Offset(0, 10),
+                      )
+                    ]),
+                child: InputHistoryTextField(
                   decoration: InputDecoration(
-                    hintStyle: const TextStyle(fontFamily: "Nexa",fontSize: 20,color: Color.fromRGBO(186, 186, 186,1.0)),
-                      contentPadding: const EdgeInsets.all(20),
-                      hintText: 'Search...',
-                      filled: true,
-                      fillColor: const Color(0xffFBF8FF),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(40),
-                        borderSide: BorderSide.none,
-                      )),
+                    label: Text("Search"),
+                  ),
+                  enableHistory: true,
+                  enableSuggestions: true,
+                  enableSave: true,
+                  historyKey: "5",
+                  listStyle: ListStyle.List,
+                  lockBackgroundColor: Colors.brown.withAlpha(90),
+                  lockTextColor: Colors.black,
+                  lockItems: [
+                    "Flutter",
+                    "Ios",
+                    "Java",
+                    "Python",
+                    "C++",
+                    "Android",
+                    "Html",
+                    "JavaScript",
+                  ],
+                  showHistoryIcon: true,
+                  deleteIconColor: Colors.white,
+                  textColor: Colors.white,
+                  backgroundColor: Colors.white12,
                 ),
               ),
               top: height * 0.400,
@@ -206,3 +221,5 @@ class _StreetPageState extends State<StreetPage> {
     );
   }
 }
+
+
