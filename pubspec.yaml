@@ -40,6 +40,7 @@ dependencies:
   carousel_slider:
   google_fonts:
   pin_code_fields:
+  input_history_text_field:
 
 dev_dependencies:
   flutter_test:
