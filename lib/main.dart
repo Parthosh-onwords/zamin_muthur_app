@@ -7,7 +7,10 @@ import 'Screens/Login/first_screen.dart';
 
 
 //updated by parthosh on 21.3.2022
-//overall ui except profile,about,ration page
+//overall ui except profile,about,ration page...
+
+//updated by mohan on 22.3.2022
+//about village, profile, search, ration Screens
 void main() {
   //lock the rotation in land scape.......................
   WidgetsFlutterBinding.ensureInitialized();
