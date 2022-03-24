@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:zamin_muthur_app/Screens/Login/street_search_screen.dart';
 import 'Screens/Login/first_screen.dart';
 
 
 
 
-//updated by parthosh on 22.3.2022
+//updated by parthosh on 24.3.2022/.....
 //overall ui except updates done
 
 //updated by mohan on 24.3.2022
@@ -33,8 +34,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: FirstScreen(),
-      // home: HomePage(),
+      // home: FirstScreen(),
+      home: StreetPage(),
       debugShowCheckedModeBanner: false,
     );
   }

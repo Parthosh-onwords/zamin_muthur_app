@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen.dart';
 
 
@@ -31,6 +32,8 @@ class StreetPage extends StatefulWidget {
 }
 
 class _StreetPageState extends State<StreetPage> {
+
+  late SharedPreferences data;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -123,7 +126,7 @@ class _StreetPageState extends State<StreetPage> {
             Positioned(
               child: GestureDetector(
                 onTap: (){
-                  setState(() async {
+                  setState((){
                     showSearch(context: context, delegate: CitySearch());
                     // final results = await showSearch(context: context, delegate: CitySearch());
                     //print('Result: $results');
@@ -229,13 +232,20 @@ class CitySearch extends SearchDelegate<String> {
     'Hamburg',
     'London',
   ];
-  final recentCities = [
-    'Berlin',
-    'Munich',
-    'London',
-  ];
+  // final recentCities = [
+  //   'Berlin',
+  //   'Munich',
+  //   'London',
+  // ];
+
+  SharedPreferences? data;
+
+  List<dynamic> recentCities = [];
+
 
   var Result = '';
+
+
 
   @override
   List<Widget> buildActions(BuildContext context) => [
@@ -294,7 +304,7 @@ class CitySearch extends SearchDelegate<String> {
     return buildSuggestionsSuccess(suggestions);
   }
 
-  Widget buildSuggestionsSuccess(List<String> suggestions) => ListView.builder(
+  Widget buildSuggestionsSuccess(List<dynamic> suggestions) => ListView.builder(
       itemCount: suggestions.length,
       itemBuilder: (context, index) {
         final suggestion = suggestions[index];
@@ -304,7 +314,7 @@ class CitySearch extends SearchDelegate<String> {
         return ListTile(
           onTap: (){
             query = suggestion;
-
+            recentCities.add(query);
             close(context, suggestion);
             //showResults(context);
 
