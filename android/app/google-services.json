@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "18997219345",
+    "project_id": "smart-village-be997",
+    "storage_bucket": "smart-village-be997.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18997219345:android:560467e80fbc858f6fa1b0",
+        "android_client_info": {
+          "package_name": "com.onwords.smart_village"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18997219345-9qevk2rs8ov7m291ufs3vbliu9rftas1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.onwords.smart_village",
+            "certificate_hash": "475f7ff6ae8b397ffe987f2ed9829994d0f9e1a6"
+          }
+        },
+        {
+          "client_id": "18997219345-oud0qfgk5cmqukuju4m6lldju049kg2b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuQXKYO9hAKG7GwPUauPIKG3WS50jGwi4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18997219345-oud0qfgk5cmqukuju4m6lldju049kg2b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

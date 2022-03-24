@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:zamin_muthur_app/Screens/Login/passwors_screen.dart';
 
 
-Route _createRoute() {
+Route _createRoute(String number) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const PasswordPage(),
+    pageBuilder: (context, animation, secondaryAnimation) => PasswordPage(number: number,),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;
@@ -23,6 +23,9 @@ Route _createRoute() {
 
 
 
+// final _auth = FirebaseAuth.instance;
+// final databaseReference = FirebaseDatabase.instance.reference();
+
 class MobileNumberPage extends StatefulWidget {
   const MobileNumberPage({Key? key}) : super(key: key);
 
@@ -31,6 +34,22 @@ class MobileNumberPage extends StatefulWidget {
 }
 
 class _MobileNumberPageState extends State<MobileNumberPage> {
+
+  TextEditingController number = TextEditingController();
+
+
+  @override
+  void initState() {
+    number = TextEditingController();
+    // TODO: implement initState
+    super.initState();
+  }
+  @override
+  void dispose() {
+    number.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -147,11 +166,12 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
                 child: Column(
                   children: [
                     TextFormField(
+                      controller: number,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         hintStyle: const TextStyle(fontFamily: 'Nexa',fontSize: 15),
                         contentPadding: const EdgeInsets.all(20),
-                        hintText: 'Mobile number',
+                        hintText: ' 91-Mobile number',
                         filled: true,
                         fillColor: const Color(0xffFBF8FF),
                         border: OutlineInputBorder(
@@ -172,7 +192,7 @@ class _MobileNumberPageState extends State<MobileNumberPage> {
                 onTap: () {
                   setState(() {
 
-                    Navigator.of(context).push(_createRoute());
+                    Navigator.of(context).push(_createRoute(number.text));
 
 
                   });

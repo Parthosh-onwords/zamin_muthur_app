@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.zamin_muthur_app">
+    package="com.onwords.smart_village">
    <application
-        android:label="zamin_muthur_app"
+        android:label="Smart Village"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

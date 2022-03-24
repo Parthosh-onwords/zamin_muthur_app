@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:zamin_muthur_app/Screens/Login/street_search_screen.dart';
 
+import 'home_screen.dart';
+
 
 Route _createRoute() {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => const StreetPage(),
+    pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;
@@ -21,9 +25,12 @@ Route _createRoute() {
   );
 }
 
+final _auth = FirebaseAuth.instance;
+final databaseReference = FirebaseDatabase.instance.reference();
 
 class PasswordPage extends StatefulWidget {
-  const PasswordPage({Key? key}) : super(key: key);
+  final String number;
+  const PasswordPage({Key? key, required this.number}) : super(key: key);
 
   @override
   _PasswordPageState createState() => _PasswordPageState();
@@ -31,14 +38,49 @@ class PasswordPage extends StatefulWidget {
 
 class _PasswordPageState extends State<PasswordPage> {
 
-  final TextEditingController _fieldOne = TextEditingController();
-  final TextEditingController _fieldTwo = TextEditingController();
-  final TextEditingController _fieldThree = TextEditingController();
-  final TextEditingController _fieldFour = TextEditingController();
+  TextEditingController codeController = TextEditingController();
+  String verifyId = " ";
+
+
+  Future loginUser(String phone, BuildContext context) async{
+    _auth.verifyPhoneNumber(
+        phoneNumber:"+91 $phone",
+        timeout: const Duration(seconds: 60),
+        verificationCompleted: (PhoneAuthCredential credential) async{
+         print("credential in line 50 in pass");
+        },
+        verificationFailed: (FirebaseAuthException exception){
+          print(exception);
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          // Auto-resolution timed out...
+          print("im timed out in line:71 ");
+        },
+        codeSent: (String verificationId, int? forceResendingToken) {
+          setState(() {
+            verifyId = verificationId;
+          });
+        }
+    );
+  }
+
   String currentText = "";
   final formKey = GlobalKey<FormState>();
 
+@override
+  void initState() {
+  loginUser(widget.number, context);
+  codeController = TextEditingController();
+    // TODO: implement initState
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    codeController.dispose();
+  // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +179,8 @@ class _PasswordPageState extends State<PasswordPage> {
                   child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 50),
                       child: PinCodeTextField(
-                        length: 4,
+                        length: 6,
+                        autoFocus: true,
                         obscureText: false,
                         animationType: AnimationType.fade,
                         pinTheme: PinTheme(
@@ -155,7 +198,7 @@ class _PasswordPageState extends State<PasswordPage> {
                         animationDuration: const Duration(milliseconds: 300),
                         enableActiveFill: true,
                         keyboardType: TextInputType.number,
-                        controller: _fieldOne,
+                        controller: codeController,
                         onCompleted: (v) {
                           print("Completed");
                         },
@@ -171,60 +214,6 @@ class _PasswordPageState extends State<PasswordPage> {
                           //but you can show anything you want here, like your pop up saying wrong paste format or etc
                           return true;
                         }, appContext: context,
-                      // PinCodeTextField(
-                      //   appContext: context,
-                      //   pastedTextStyle: TextStyle(
-                      //     color: Colors.green.shade600,
-                      //     fontWeight: FontWeight.bold,
-                      //   ),
-                      //   length: 4,
-                      //   obscureText: true,
-                      //   obscuringCharacter: '*',
-                      //   obscuringWidget: const FlutterLogo(size: 24),
-                      //   blinkWhenObscuring: true,
-                      //   animationType: AnimationType.fade,
-                      //   validator: (v) {
-                      //     if (v!.length < 3) {
-                      //       return "I'm from validator";
-                      //     } else {
-                      //       return null;
-                      //     }
-                      //   },
-                      //   pinTheme: PinTheme(
-                      //     shape: PinCodeFieldShape.circle,
-                      //     // fieldHeight: 50,
-                      //     // fieldWidth: 40,
-                      //     activeFillColor: Colors.white,
-                      //   ),
-                      //   cursorColor: Colors.black,
-                      //   animationDuration: const Duration(milliseconds: 300),
-                      //   enableActiveFill: true,
-                      //   // errorAnimationController: errorController,
-                      //   controller: _fieldOne,
-                      //   keyboardType: TextInputType.number,
-                      //   boxShadows: const [
-                      //     BoxShadow(
-                      //       offset: Offset(0, 1),
-                      //       color: Colors.black12,
-                      //       blurRadius: 10,
-                      //     )
-                      //   ],
-                      //   onCompleted: (v) {
-                      //     print("Completed");
-                      //   },
-                      //   onChanged: (value) {
-                      //     print(value);
-                      //     setState(() {
-                      //       currentText = value;
-                      //     });
-                      //   },
-                      //   beforeTextPaste: (text) {
-                      //     print("Allowing to paste $text");
-                      //     //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                      //     //but you can show anything you want here, like your pop up saying wrong paste format or etc
-                      //     return true;
-                      //   },
-                      // )
                   ),
                 ),
               ),
@@ -244,11 +233,19 @@ class _PasswordPageState extends State<PasswordPage> {
             ),
             Positioned(
               child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    Navigator.of(context).push(_createRoute());
+                onTap: () async {
+                  final code = codeController.text.trim();
+                  AuthCredential credential =  PhoneAuthProvider.credential(verificationId: verifyId, smsCode: code);
 
-                  });
+                  final result = await _auth.signInWithCredential(credential);
+
+                  final user = result.user;
+
+                  if(user != null){
+                    Navigator.of(context).push(_createRoute());
+                  }else{
+                    print("Error");
+                  }
                 },
                 child: Container(
                   margin: EdgeInsets.only(top: height * 0.2),
