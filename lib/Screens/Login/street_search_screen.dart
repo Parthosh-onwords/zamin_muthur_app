@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:input_history_text_field/input_history_text_field.dart';
 import 'home_screen.dart';
 
 
@@ -122,49 +121,48 @@ class _StreetPageState extends State<StreetPage> {
               right: width * 0.047,
             ),
             Positioned(
-              child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-
-                decoration: BoxDecoration(
+              child: GestureDetector(
+                onTap: (){
+                  setState(() async {
+                    showSearch(context: context, delegate: CitySearch());
+                    // final results = await showSearch(context: context, delegate: CitySearch());
+                    //print('Result: $results');
+                  });
+                },
+                child: Container(
+                  //width: width * 0.2,
+                  height: height * 0.065,
+                  decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
+                    borderRadius: BorderRadius.circular(40),
+                    boxShadow:  [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        blurRadius: 10,
-                        offset: Offset(0, 10),
-                      )
-                    ]),
-                child: InputHistoryTextField(
-                  decoration: InputDecoration(
-                    label: Text("Search"),
+                          color: Colors.black12,
+                          offset: Offset(2.0, 4.0),
+                          spreadRadius: 3,
+                          blurRadius: 9)
+                    ],
                   ),
-                  enableHistory: true,
-                  enableSuggestions: true,
-                  enableSave: true,
-                  historyKey: "5",
-                  listStyle: ListStyle.List,
-                  lockBackgroundColor: Colors.brown.withAlpha(90),
-                  lockTextColor: Colors.black,
-                  lockItems: [
-                    "Flutter",
-                    "Ios",
-                    "Java",
-                    "Python",
-                    "C++",
-                    "Android",
-                    "Html",
-                    "JavaScript",
-                  ],
-                  showHistoryIcon: true,
-                  deleteIconColor: Colors.white,
-                  textColor: Colors.white,
-                  backgroundColor: Colors.white12,
+                  child: Center(
+                    child: Text("Search Your Locations",style: TextStyle(fontWeight: FontWeight.w500,fontSize: height*0.015,fontFamily: "Nexa"),),
+                  )
+                  // TextField(
+                  //   decoration: InputDecoration(
+                  //     hintStyle: const TextStyle(fontFamily: "Nexa",fontSize: 20,color: Color.fromRGBO(186, 186, 186,1.0)),
+                  //       contentPadding: const EdgeInsets.all(20),
+                  //       hintText: 'Search...',
+                  //       filled: true,
+                  //       fillColor: const Color(0xffFBF8FF),
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(40),
+                  //         borderSide: BorderSide.none,
+                  //       )),
+                  // ),
                 ),
               ),
               top: height * 0.400,
-              left: width * 0.044,
-              right: width * 0.044,
+              left: width * 0.160,
+              right: width * 0.160,
             ),
             Positioned(
               child: GestureDetector(
@@ -223,3 +221,122 @@ class _StreetPageState extends State<StreetPage> {
 }
 
 
+class CitySearch extends SearchDelegate<String> {
+  final cities = [
+    'Berlin',
+    'Paris',
+    'Munich',
+    'Hamburg',
+    'London',
+  ];
+  final recentCities = [
+    'Berlin',
+    'Munich',
+    'London',
+  ];
+
+  var Result = '';
+
+  @override
+  List<Widget> buildActions(BuildContext context) => [
+    IconButton(
+      icon: Icon(Icons.clear),
+      onPressed: () {
+        if (query.isEmpty) {
+          close(context, null!);
+        } else {
+          query = '';
+          showSuggestions(context);
+        }
+      },
+    )
+  ];
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    IconButton(
+      onPressed: () => close(context, null!),
+      icon: Icon(Icons.arrow_back_ios_new),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) => Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.search, size: 120),
+        const SizedBox(height: 48),
+        Text(
+          query,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 64,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    ),
+  );
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggestions = query.isEmpty
+        ? recentCities
+        : cities.where((city) {
+      final cityLower = city.toLowerCase();
+      final queryLower = query.toLowerCase();
+
+      return cityLower.startsWith(queryLower);
+
+    }).toList();
+
+    return buildSuggestionsSuccess(suggestions);
+  }
+
+  Widget buildSuggestionsSuccess(List<String> suggestions) => ListView.builder(
+      itemCount: suggestions.length,
+      itemBuilder: (context, index) {
+        final suggestion = suggestions[index];
+        final queryText = suggestion.substring(0, query.length);
+        final remainingText = suggestion.substring(query.length);
+
+        return ListTile(
+          onTap: (){
+            query = suggestion;
+
+            close(context, suggestion);
+            //showResults(context);
+
+            // 3. Navigate to Result Page
+            //  Navigator.push(
+            //   context,
+            //   MaterialPageRoute(
+            //     builder: (BuildContext context) => ResultPage(suggestion),
+            //   ),
+            // )
+          },
+          leading: query == ""
+              ? Icon(Icons.history): Icon(Icons.search),
+          //title: Text(suggestion),
+          title: RichText(
+            text: TextSpan(text: queryText,
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+              ),
+              children: [
+                TextSpan(
+                  text: remainingText,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      });
+}

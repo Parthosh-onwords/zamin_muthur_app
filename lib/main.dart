@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zamin_muthur_app/Screens/Login/home_screen.dart';
 import 'Screens/Login/first_screen.dart';
 
 
@@ -9,8 +8,8 @@ import 'Screens/Login/first_screen.dart';
 //updated by parthosh on 22.3.2022
 //overall ui except updates done
 
-//updated by mohan on 22.3.2022
-//about village, profile, search, ration Screens
+//updated by mohan on 24.3.2022
+//search Street screen,
 void main() {
   //lock the rotation in land scape.......................
   WidgetsFlutterBinding.ensureInitialized();
