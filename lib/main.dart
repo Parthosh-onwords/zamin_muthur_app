@@ -9,7 +9,7 @@ import 'Screens/Login/first_screen.dart';
 //overall ui except updates done
 
 //updated by mohan on 24.3.2022
-//search Street screen,
+//search Street screen.....,
 void main() {
   //lock the rotation in land scape.......................
   WidgetsFlutterBinding.ensureInitialized();
